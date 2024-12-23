@@ -1,0 +1,18 @@
+[submodule "tmux/.config/tmux/plugins/tmux-gruvbox"]
+	path = tmux/.config/tmux/plugins/tmux-gruvbox
+	url = https://github.com/z3z1ma/tmux-gruvbox.git
+[submodule "tmux/.config/tmux/plugins/tmux-sensible"]
+	path = tmux/.config/tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible.git
+[submodule "tmux/.config/tmux/plugins/tmux-yank"]
+	path = tmux/.config/tmux/plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank.git
+[submodule "tmux/.config/tmux/plugins/tpm"]
+	path = tmux/.config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+[submodule "tmux/.config/tmux/plugins/vim-tmux-navigator"]
+	path = tmux/.config/tmux/plugins/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "tmux/.config/tmux/plugins/catppuccin-tmux"]
+	path = tmux/.config/tmux/plugins/catppuccin-tmux
+	url = https://github.com/catppuccin/tmux.git
