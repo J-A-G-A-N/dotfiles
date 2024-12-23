@@ -19,3 +19,6 @@
 [submodule "kitty/.config/kitty/kitty_gruvbox_theme"]
 	path = kitty/.config/kitty/kitty_gruvbox_theme
 	url = https://github.com/wdomitrz/kitty_gruvbox_theme.git
+[submodule "kitty/.config/kittykitty_gruvbox_theme"]
+	path = kitty/.config/kittykitty_gruvbox_theme
+	url = https://github.com/wdomitrz/kitty_gruvbox_theme.git
