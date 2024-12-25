@@ -28,7 +28,7 @@ alias exercism='~/work/sourcecode/GITHUB/bin/exercism'
 alias zig14='/home/gluon/work/compilers/zigmaster/zigmas/zig'
 alias flash="/home/gluon/.arduino15/packages/vega/tools/vegaflasher/002/flasher.bat"
 alias tmuxs="~/work/sourcecode/tmux-sessionizer/tmux-sessionizer"
-alias vwiki="v ~/Documents/vimwiki/index.wiki"
+alias vwiki="v ~/Documents/vimwiki/wiki/index.wiki"
 alias playmusic="~/work/shell_scripts/play-music.sh"
 # -----------------------------------------------------
 # ML4W Apps

@@ -61,8 +61,17 @@ vim.g.vimtex_compiler_latexmk = {
 
 -- Set up vimwiki
 
+
+
 vim.g.vimwiki_list = {{
-	path = '~/Documents/vimwiki',
+	path = '~/Documents/vimwiki/wiki',
 	syntax = 'default',
-	ext = '.wiki'
+	ext = '.wiki',
+  custom_wiki2html = '',
+  path_html = '~/Documents/vimwiki/html/'
+
 }}
+
+
+
+
