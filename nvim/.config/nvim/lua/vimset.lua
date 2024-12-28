@@ -4,6 +4,7 @@ vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 --vim.cmd("set spell")
 vim.g.mapleader = " "
+vim.g.browser = 'firefox'
 vim.cmd("set number")
 vim.cmd("set relativenumber")
 vim.opt.autoindent=true
@@ -15,7 +16,7 @@ vim.keymap.set("n", "<c-x>", ":tabclose<cr>") -- close current tab
 vim.keymap.set("n", "<c-n>", ":tabn<cr>") --  go to next tab
 vim.keymap.set("n", "<c-u>", ":tabp<cr>") --  go to previous tab
 vim.keymap.set("n","<leader>nh", ":nohl<cr>",{desc = "clear search highlights"})
-vim.keymap.set("n","<leader>c",":Telescope colorscheme<CR>")
+vim.keymap.set("n","<leader>c",":telescope colorscheme<cr>")
 -- copy the selected text to the system clipboard in visual mode
 vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
 
@@ -26,52 +27,70 @@ vim.api.nvim_set_keymap('v', '<leader>l', '"+d', { noremap = true, silent = true
 
 
 
--- Define a function to prompt for a shell command and execute it
-function ExecuteShellCommand()
-    -- Prompt the user for a shell command
-    local input = vim.fn.input('Enter shell command: ')
-    -- Execute the shell command
+-- define a function to prompt for a shell command and execute it
+function executeshellcommand()
+    -- prompt the user for a shell command
+    local input = vim.fn.input('enter shell command: ')
+    -- execute the shell command
     vim.api.nvim_command('! ' .. input)
 end
 
--- Map <Shift>t to the ExecuteShellCommand function in normal mode
-vim.api.nvim_set_keymap('n', '<S-t>', ':lua ExecuteShellCommand()<CR>', { noremap = true, silent = true })
+-- map <shift>t to the executeshellcommand function in normal mode
+vim.api.nvim_set_keymap('n', '<s-t>', ':lua executeshellcommand()<cr>', { noremap = true, silent = true })
 
 -- split 
-vim.keymap.set("n", "<S-v>", ":vsplit<cr>")
-vim.keymap.set("n", "<S-h>", ":split<cr>")
+vim.keymap.set("n", "<s-v>", ":vsplit<cr>")
+vim.keymap.set("n", "<s-h>", ":split<cr>")
 
 
--- Vimtex Configuration
-vim.g.vimtex_compiler_method = 'latexmk'  -- Use latexmk for compilation
+-- vimtex configuration
+vim.g.vimtex_compiler_method = 'latexmk'  -- use latexmk for compilation
 vim.g.vimtex_compiler_latexmk = {
     options = {
         '-silent', 
         '-interaction=nonstopmode', 
         '-pdf', 
-        '-latexoption=-output-directory=.', -- Output PDF in the current directory
-        '-latexoption=-file-line-error', -- Avoid creating extra files
+        '-latexoption=-output-directory=.', -- output pdf in the current directory
+        '-latexoption=-file-line-error', -- avoid creating extra files
     },
-    clean = 1,  -- Automatically clean auxiliary files after compilation
+    clean = 1,  -- automatically clean auxiliary files after compilation
 }
 
 
+vim.g.vimwiki_list = {{path =  '~/documents/vimwiki/wiki/',  syntax = 'markdown', ext = '.md'}}
 
 
+-- open wiki home index
+vim.keymap.set("n", "<leader>ww", ":wikihome<cr>")
 
--- Set up vimwiki
+-- create or follow a markdown link
+vim.keymap.set("n", "<leader>wn", ":wikicreatefollowlink<cr>")
 
+-- create or follow a subdirectory index link
+vim.keymap.set("n", "<leader>wn", ":wikicreatefollowdirectory<cr>")
 
+-- go to parent directory's index
+vim.keymap.set("n", "<leader>wp", ":wikigotoparent<cr>")
 
-vim.g.vimwiki_list = {{
-	path = '~/Documents/vimwiki/wiki',
-	syntax = 'default',
-	ext = '.wiki',
-  custom_wiki2html = '',
-  path_html = '~/Documents/vimwiki/html/'
+-- delete current link
+vim.keymap.set("n", "<leader>wd", ":wikideletelink<cr>")
 
-}}
+-- rename current link
+vim.keymap.set("n", "<leader>wr", ":wikirenamelink<cr>")
 
+-- convert current markdown into html
+vim.keymap.set("n", "<leader>wh", ":wiki2html<cr>")
 
+-- convert all changed markdowns into htmls
+vim.keymap.set("n", "<leader>wh", ":wikiall2html<cr>")
+
+-- convert current markdown into html and browse html in browser
+vim.keymap.set("n", "<leader>wb", ":wiki2htmlbrowse<cr>")
+
+-- open current markdown's corresponding html
+vim.keymap.set("n", "<leader>wo", ":wikiopenhtml<cr>")
+
+-- paste image in vimwiki's image directory
+vim.keymap.set("n", "<leader>wi", ":wikipasteimage<cr>")
 
 

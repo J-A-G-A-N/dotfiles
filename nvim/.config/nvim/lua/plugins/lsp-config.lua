@@ -11,7 +11,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
         require("mason-lspconfig").setup({
-        ensure_installed = {"lua_ls","pyright","clangd","zls","jdtls",}
+        ensure_installed = {"lua_ls","pyright","clangd","zls","marksman"}
         })
         end
   },
@@ -46,11 +46,6 @@ return {
       on_attach = on_attach,
     })
 
-    --  lspconfig.textlsp.setup({
-    --   capabilities = capabilities,
-    --   on_attach = on_attach,
-    -- })
-
 		lspconfig.texlab.setup({
       capabilities = capabilities,
       on_attach = on_attach,
@@ -66,7 +61,10 @@ return {
       on_attach = on_attach,
     })
 
-
+	lspconfig.marksman.setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
 	
   end,
 	},
