@@ -1,0 +1,105 @@
+diff --git a/x.c b/x.c
+index abcdef0..1234567 100644
+--- a/x.c
++++ b/x.c
+@@ -31,6 +31,7 @@
+ #include <sys/select.h>
+ #include <sys/wait.h>
+ #include <unistd.h>
++#include <libgen.h>
+ #include <X11/cursorfont.h>
+ #include <X11/keysym.h>
+ #include <X11/Xft/Xft.h>
+@@ -66,6 +67,7 @@
+ #define XK_NO_MOD       0
+ #define XK_SWITCH_MOD   (1<<13)
+ 
++#define COLORFILE       "/path/to/st-colors.h"
+ #define XK_ANY_MOD      UINT_MAX
+ 
+ /* Arbitrary sizes */
+@@ -133,6 +135,7 @@ typedef struct {
+ } DC;
+ 
+ /* function declarations */
++void load_colors(void);
+ static void die(const char *, ...);
+ static void draw(void);
+ static void redraw(void);
+@@ -168,6 +171,7 @@ static void tsetdirt(int, int);
+ static void usage(void);
+ static void xbell(void);
+ static void xclipcopy(void);
++static void reload_colors(void);
+ static void xhints(void);
+ static void xinit(void);
+ static void xloadcols(void);
+@@ -558,6 +562,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph g, int len, int x, int
+     XftDrawDestroy(xw.draw);
+ }
+ 
++void reload_colors(void);
+ 
+ int
+ xsetcolorname(int x, const char *name)
+@@ -2733,6 +2738,7 @@ xloadcols(void)
+     memcpy(term.col, xw.col, sizeof(term.col));
+ }
+ 
++void reload_colors(void);
+ 
+ void
+ xloadfonts(char *fontstr, double fontsize)
+@@ -2903,6 +2909,18 @@
+     xloadcols();
+     /* Set borderless window */
+     xsetborderless(borderless);
++
++    if (dynamiccolors) {
++        load_colors();
++    }
+ }
+ 
++void
++load_colors(void) {
++    FILE *fp;
++    if ((fp = fopen(COLORFILE, "r")) == NULL) {
++        fprintf(stderr, "Could not open color file\n");
++        return;
++    }
++    for (int i = 0; i < 256; i++) {
++        fscanf(fp, "%*[^\n]\n");
++    }
++    fclose(fp);
++}
+ 
+ static void
+ sigchld(int a)
+@@ -3148,6 +3166,18 @@ run(void)
+         draw();
+     }
+ 
++    reload_colors();
+ }
+ 
++void
++reload_colors(void) {
++    xloadcols();
++    draw();
++}
+ 
+static void
+sighandler(int sig) {
++    switch (sig) {
++    case SIGUSR1:
++        reload_colors();
++        break;
++    }
+ }
+ 
+int
+main(int argc, char *argv[]) {
++    signal(SIGUSR1, sighandler);
+    // rest of your main function
+}
+
