@@ -51,10 +51,10 @@ return {
       on_attach = on_attach,
     })
 
-     lspconfig.jdtls.setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
+    --  lspconfig.jdtls.setup({
+    --   capabilities = capabilities,
+    --   on_attach = on_attach,
+    -- })
 
 	lspconfig.zls.setup({
       capabilities = capabilities,
@@ -68,11 +68,4 @@ return {
 	
   end,
 	},
-
-  {
-  "lervag/vimtex",
-  init = function()
-    -- Use init for configuration, don't use the more common "config".
-  end
-},
 }

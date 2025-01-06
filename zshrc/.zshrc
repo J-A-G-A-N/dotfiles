@@ -24,13 +24,13 @@ alias py312='conda activate py312'
 alias dpy312='conda deactivate'
 alias livereload='/home/gluon/.config/miniconda3/envs/py312/bin/livereload'
 alias py='python3'
-alias zigdoc='zen-browser /home/gluon/work/compilers/zig/doc/langref.html & disown && exit'  
+alias zigdoc='zen /home/gluon/work/compilers/zig/doc/langref.html & disown && exit'  
 alias exercism='~/work/sourcecode/GITHUB/bin/exercism'
-alias zig14='/home/gluon/work/compilers/zigmaster/zigmas/zig'
+alias zig14='/home/gluon/work/sourcecode/compilers/zigmaster/zigmas/zig'
 alias flash="/home/gluon/.arduino15/packages/vega/tools/vegaflasher/002/flasher.bat"
 alias tmuxs="~/work/sourcecode/tmux-sessionizer/tmux-sessionizer"
-alias vwiki="v ~/Documents/vimwiki/wiki/index.wiki"
 alias playmusic="~/work/shell_scripts/play-music.sh"
+alias  yt-dl='py /home/gluon/work/sourcecode/youtube-dl/youtube_dl/__main__.py -o "/home/gluon/Downloads/ext/%(title)s.%(ext)s"'
 # -----------------------------------------------------
 # ML4W Apps
 # -----------------------------------------------------
@@ -142,6 +142,9 @@ umountphone() {
     fi
 }
 
-
+vimwiki(){
+	cd ~/Documents/Wiki/sources/
+	nvim index.md
+}
 
 

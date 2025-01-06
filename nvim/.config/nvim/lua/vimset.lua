@@ -5,6 +5,7 @@ vim.cmd("set shiftwidth=2")
 --vim.cmd("set spell")
 vim.g.mapleader = " "
 vim.g.browser = 'firefox'
+vim.g.zig_fmt_autosave = 0
 vim.cmd("set number")
 vim.cmd("set relativenumber")
 vim.opt.autoindent=true
