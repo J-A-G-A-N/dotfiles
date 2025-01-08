@@ -20,7 +20,8 @@ return {
   "neovim/nvim-lspconfig",
   lazy = false,
   config = function()
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+	  local capabilities = require('blink.cmp').get_lsp_capabilities()
     local lspconfig = require("lspconfig")
 
     local on_attach = function(client, bufnr)
@@ -51,10 +52,6 @@ return {
       on_attach = on_attach,
     })
 
-    --  lspconfig.jdtls.setup({
-    --   capabilities = capabilities,
-    --   on_attach = on_attach,
-    -- })
 
 	lspconfig.zls.setup({
       capabilities = capabilities,
@@ -66,6 +63,11 @@ return {
       on_attach = on_attach,
     })
 	
+    --  lspconfig.jdtls.setup({
+    --   capabilities = capabilities,
+    --   on_attach = on_attach,
+    -- })
+
   end,
 	},
 }

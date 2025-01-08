@@ -2,7 +2,7 @@
 local M = {}
 
 -- Function to compile LaTeX using latexmk
-local function compile_latex()
+function M.compile_latex()
     -- Create output directory if it doesn't exist
     vim.fn.system('mkdir -p out')
     
@@ -25,7 +25,7 @@ local function compile_latex()
 end
 
 -- Function to view PDF
-local function view_pdf()
+function M.view_pdf()
     local pdf_path = vim.fn.expand('%:p:r') .. '.pdf'
     pdf_path = string.gsub(pdf_path, vim.fn.expand('%:p:h'), vim.fn.expand('%:p:h') .. '/out')
     
@@ -54,17 +54,25 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     group = latex_augroup,
     pattern = '*.tex',
     callback = function()
-        compile_latex()
-        view_pdf()
+        M.compile_latex()
+        M.view_pdf()
     end
 })
 
 -- Set up keybindings
-vim.keymap.set('n', '<Leader>lc', compile_latex, { desc = 'Compile LaTeX' })
-vim.keymap.set('n', '<Leader>lv', view_pdf, { desc = 'View PDF' })
+vim.keymap.set('n', '<Leader>lc', M.compile_latex, { desc = 'Compile LaTeX' })
+vim.keymap.set('n', '<Leader>lv', M.view_pdf, { desc = 'View PDF' })
 
--- Optional: expose functions globally if needed
-M.compile_latex = compile_latex
-M.view_pdf = view_pdf
+vim.api.nvim_create_user_command("CompileLatex",function()
+	M.compile_latex()
+end,{})
+vim.api.nvim_create_user_command("ViewLatex",function ()
+	M.view_pdf()
+end,{})
+
+
+
+
+print("Hi from vimlatex.lua")
 
 return M

@@ -15,10 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
-require("vimlatex")
 require("vimset")
+-- require("scripts.vimlatex")
 require("lazy").setup("plugins")
-vim.cmd('source ~/.config/nvim/lua/vimwiki-markdown.vim')
-
-
-
+-- vim.cmd('source ~/.config/nvim/lua/vimwiki-markdown.vim')

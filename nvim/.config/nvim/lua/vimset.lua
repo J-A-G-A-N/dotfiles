@@ -1,47 +1,54 @@
+
+-- My actual config
 --vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
+vim.cmd("set splitright")
 --vim.cmd("set spell")
 vim.g.mapleader = " "
-vim.g.browser = 'firefox'
+vim.g.browser = 'zen'
 vim.g.zig_fmt_autosave = 0
 vim.cmd("set number")
 vim.cmd("set relativenumber")
 vim.opt.autoindent=true
 vim.opt.termguicolors = false
-vim.keymap.set('n','<leader>ch',':nohl<cr>')
-vim.keymap.set('n','<leader>c',':close<cr>')
-vim.keymap.set("n", "<c-t>", ":tabnew<cr>") -- open new tab
-vim.keymap.set("n", "<c-x>", ":tabclose<cr>") -- close current tab
-vim.keymap.set("n", "<c-n>", ":tabn<cr>") --  go to next tab
-vim.keymap.set("n", "<c-u>", ":tabp<cr>") --  go to previous tab
-vim.keymap.set("n","<leader>nh", ":nohl<cr>",{desc = "clear search highlights"})
-vim.keymap.set("n","<leader>c",":telescope colorscheme<cr>")
--- copy the selected text to the system clipboard in visual mode
-vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
-
--- copy the current line to the system clipboard in normal modevim.api.nvim_set_keymap('n', '<leader>y', '"+yy', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>u', '"+yy', { noremap = true, silent = false })
--- copy the selected text to the system clipboard in visual mode and then delete it
-vim.api.nvim_set_keymap('v', '<leader>l', '"+d', { noremap = true, silent = true })
-
 
 
 -- define a function to prompt for a shell command and execute it
-function executeshellcommand()
+local function executeshellcommand()
     -- prompt the user for a shell command
     local input = vim.fn.input('enter shell command: ')
     -- execute the shell command
     vim.api.nvim_command('! ' .. input)
 end
 
--- map <shift>t to the executeshellcommand function in normal mode
-vim.api.nvim_set_keymap('n', '<s-t>', ':lua executeshellcommand()<cr>', { noremap = true, silent = true })
+
+
+
+vim.keymap.set("n","<leader>nh", ":nohl<cr>",{desc = "clear search highlights"})
+vim.keymap.set("n","<leader>c",":Telescope colorscheme<cr>")
+
+-- copy the selected text to the system clipboard in visual mode
+vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
+
+-- copy the current line to the system clipboard in normal modevim.api.nvim_set_keymap('n', '<leader>y', '"+yy', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>u', '"+yy', { noremap = true, silent = false })
+
+-- copy the selected text to the system clipboard in visual mode and then delete it
+vim.api.nvim_set_keymap('v', '<leader>l', '"+d', { noremap = true, silent = true })
 
 -- split 
 vim.keymap.set("n", "<s-v>", ":vsplit<cr>")
 vim.keymap.set("n", "<s-h>", ":split<cr>")
+
+-- map <shift>t to the executeshellcommand function in normal mode
+vim.api.nvim_set_keymap('n', '<s-t>', ':lua executeshellcommand()<cr>', { noremap = true, silent = true })
+
+--vim.keymap.set("n", "<c-t>", ":tabnew<cr>") -- open new tab
+--vim.keymap.set("n", "<c-x>", ":tabclose<cr>") -- close current tab
+--vim.keymap.set("n", "<c-n>", ":tabn<cr>") --  go to next tab
+--vim.keymap.set("n", "<c-u>", ":tabp<cr>") --  go to previous tab
 
 
 -- vimtex configuration
@@ -57,41 +64,65 @@ vim.g.vimtex_compiler_latexmk = {
     clean = 1,  -- automatically clean auxiliary files after compilation
 }
 
+-------------------------------------------------------
+					--- Source Required lua files ---
+-------------------------------------------------------
+local vimlatex = require("scripts.vimlatex")
 
-vim.g.vimwiki_list = {{path =  '~/documents/vimwiki/wiki/',  syntax = 'markdown', ext = '.md'}}
 
+-------------------------------------------------------
+					   --- Wiki configuration ---
+-------------------------------------------------------
+vim.g.wiki_config = {
+  home = '~/Documents/Wiki',
+  markdown_dir = 'sources',
+  html_dir = 'docs',
+  template_path = 'bootstrap',
+  theme = 'bootstrap'
+}
+
+-- Previewing browser
+vim.g.wiki_preview_browser = 'zen'
+
+-- Whether to generate table of contents in html
+vim.g.wiki_generate_toc = 1
+
+-- Automatically converting markdown to html when you save markdown file
+vim.g.wiki_auto_convert = 1
+
+-- Key mappings
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
 
 -- open wiki home index
-vim.keymap.set("n", "<leader>ww", ":wikihome<cr>")
+map('n', '<leader>ww', ':WikiHome<CR>', opts)
 
 -- create or follow a markdown link
-vim.keymap.set("n", "<leader>wn", ":wikicreatefollowlink<cr>")
+map('n', '<leader>wn', ':WikiCreateFollowLink<CR>', opts)
 
 -- create or follow a subdirectory index link
-vim.keymap.set("n", "<leader>wn", ":wikicreatefollowdirectory<cr>")
+map('n', '<leader>wN', ':WikiCreateFollowDirectory<CR>', opts)
 
--- go to parent directory's index
-vim.keymap.set("n", "<leader>wp", ":wikigotoparent<cr>")
+-- goto parent directory's index
+map('n', '<leader>wp', ':WikiGotoParent<CR>', opts)
 
 -- delete current link
-vim.keymap.set("n", "<leader>wd", ":wikideletelink<cr>")
+map('n', '<leader>wd', ':WikiDeleteLink<CR>', opts)
 
 -- rename current link
-vim.keymap.set("n", "<leader>wr", ":wikirenamelink<cr>")
+map('n', '<leader>wr', ':WikiRenameLink<CR>', opts)
 
 -- convert current markdown into html
-vim.keymap.set("n", "<leader>wh", ":wiki2html<cr>")
+map('n', '<leader>wh', ':Wiki2HTML<CR>', opts)
 
 -- convert all changed markdowns into htmls
-vim.keymap.set("n", "<leader>wh", ":wikiall2html<cr>")
+map('n', '<leader>wH', ':WikiAll2HTML<CR>', opts)
 
 -- convert current markdown into html and browse html in browser
-vim.keymap.set("n", "<leader>wb", ":wiki2htmlbrowse<cr>")
+map('n', '<leader>wb', ':Wiki2HTMLBrowse<CR>', opts)
 
 -- open current markdown's corresponding html
-vim.keymap.set("n", "<leader>wo", ":wikiopenhtml<cr>")
+map('n', '<leader>wo', ':WikiOpenHTML<CR>', opts)
 
 -- paste image in vimwiki's image directory
-vim.keymap.set("n", "<leader>wi", ":wikipasteimage<cr>")
-
-
+map('n', '<leader>wi', ':WikiPasteImage<CR>', opts)

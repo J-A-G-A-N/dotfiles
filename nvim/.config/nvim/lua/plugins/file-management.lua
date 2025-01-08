@@ -9,6 +9,7 @@ return {
 
 					vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 					vim.keymap.set('n', '<leader>p', builtin.live_grep, {})
+					vim.keymap.set('n', '<leader>h', builtin.help_tags,{})
 
 					-- Key mapping to open another file in a vertical split screen using Telescope
 					vim.api.nvim_set_keymap('n', '<leader>o',
@@ -28,6 +29,7 @@ return {
 						}
 					})
 					require("telescope").load_extension("ui-select")
+				--	require("telescope").load_extension('harpoon')
 				end
 			},
 		},
@@ -42,5 +44,18 @@ return {
   config = function() 
         vim.keymap.set('n', '<C-o>',':Neotree filesystem toggle<CR>',{}		)
   end 
+	},
+	{
+			"ThePrimeagen/harpoon",
+			branch = "harpoon2",
+			-- config = function ()
+			-- 	vim.keymap.set('n','<C-a>',':lua require("harpoon.mark").add_file()<CR>',{})
+			-- 	vim.keymap.set('n','<C-h>',':lua require("harpoon.ui").toggle_quick_menu()<CR>',{})
+			-- 	vim.keymap.set('n','<C-n>',':lua require("harpoon.ui").nav_next()<CR>  ',{})
+			-- 	vim.keymap.set('n','<C-b>',':lua require("harpoon.ui").nav_prev()<CR>  ',{})
+			-- end
+			-- ,
+
+
 	}
 }
