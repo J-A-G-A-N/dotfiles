@@ -73,6 +73,5 @@ end,{})
 
 
 
-print("Hi from vimlatex.lua")
 
 return M

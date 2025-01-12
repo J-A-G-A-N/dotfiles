@@ -7,7 +7,7 @@ return {
 				config = function()
 					local builtin = require("telescope.builtin")
 
-					vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+					vim.keymap.set('n', '<C-t>', builtin.find_files, {})
 					vim.keymap.set('n', '<leader>p', builtin.live_grep, {})
 					vim.keymap.set('n', '<leader>h', builtin.help_tags,{})
 
@@ -48,13 +48,22 @@ return {
 	{
 			"ThePrimeagen/harpoon",
 			branch = "harpoon2",
-			-- config = function ()
-			-- 	vim.keymap.set('n','<C-a>',':lua require("harpoon.mark").add_file()<CR>',{})
-			-- 	vim.keymap.set('n','<C-h>',':lua require("harpoon.ui").toggle_quick_menu()<CR>',{})
-			-- 	vim.keymap.set('n','<C-n>',':lua require("harpoon.ui").nav_next()<CR>  ',{})
-			-- 	vim.keymap.set('n','<C-b>',':lua require("harpoon.ui").nav_prev()<CR>  ',{})
-			-- end
-			-- ,
+			config = function ()
+				local harpoon = require("harpoon")
+				harpoon:setup()
+						vim.keymap.set("n", "<C-a>", function() harpoon:list():add() end)
+						vim.keymap.set("n", "<C-m>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+						-- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+						-- vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
+						-- vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end)
+						-- vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
+
+						-- Toggle previous & next buffers stored within Harpoon list
+						vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
+						vim.keymap.set("n", "<C-n>", function() harpoon:list():next() end)
+
+			end
 
 
 	}

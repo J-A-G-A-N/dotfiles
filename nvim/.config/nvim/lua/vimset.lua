@@ -5,7 +5,8 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
---vim.cmd("set spell")
+vim.cmd("set colorcolumn=80")
+vim.cmd("set spell")
 vim.g.mapleader = " "
 vim.g.browser = 'zen'
 vim.g.zig_fmt_autosave = 0
